@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+  - name: Install random utils
+    apt:
+      pkg:
+        - tmux
+        - vim
+        - git
+        - curl

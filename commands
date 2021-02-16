@@ -1,0 +1,36 @@
+# main machine setup
+
+## install ansible
+sudo apt update
+sudo apt install ansible -y
+
+## create ansible user
+sudo adduser ansible
+su - ansible
+
+## generate ssh key
+ssh-keygen
+
+## copy ssh key to host machine
+ssh-copy-id AleksandarZeljkovic1c.mylabserver.com
+
+--------
+
+# host machine setup
+
+## create ansible user
+sudo adduser ansible
+
+# no password access to host machine
+sudo visudo
+add:
+    ansible ALL=(ALL)     NOPASSWD: ALL
+save and exit   
+
+------
+
+# run playbook
+ansible-playbook -i hosts.yml upgrade.yml
+
+# ohmyzsh 
+ansible-playbook -i hosts.yml ohmyzsh.yml -u cloud_user --ask-become-pass

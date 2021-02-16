@@ -1,0 +1,37 @@
+---
+- hosts: all
+  vars:
+    the_user: "cloud_user"
+  tasks: 
+  - name: Install prerequisites
+    become: yes
+    apt:
+      pkg:
+        - zsh
+        - fonts-powerline
+        - fzf
+      state: latest
+      update_cache: true
+
+  - name: Download the install script
+    get_url:
+      url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+      dest: /home/{{ the_user }}/install.sh
+
+  - name: Changing permission of script
+    file: dest=/home/{{ the_user }}/install.sh mode=a+x
+
+  - name: Instal ohmyzsh
+    shell: rm -rf /home/{{ the_user }}/.oh-my-zsh && yes 2>/dev/null | sh -c /home/{{ the_user }}/install.sh
+
+  - name: change user shell to zsh 
+    become: yes
+    user:
+      name: "{{ the_user }}"
+      shell: /bin/zsh
+    
+  - name: x
+    shell: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+  - name: y
+    shell: wget -O ".zshrc" https://raw.githubusercontent.com/azeljkovic/linux_setup/main/.zshrc

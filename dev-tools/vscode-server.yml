@@ -1,0 +1,35 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+  - name: Download script
+    get_url:
+      url: https://code-server.dev/install.sh
+      dest: /home/{{ ansible_user }}/install.sh
+
+  - name: Install the server
+    shell: sh /home/{{ ansible_user }}/install.sh
+
+  - name: Remove file
+    ansible.builtin.file:
+      path: /home/{{ ansible_user }}/install.sh
+      state: absent
+
+  - name: Start service
+    service:
+      name: code-server@{{ ansible_user }}
+      state: started
+      enabled: yes
+
+  - name: Expose the server
+    shell: | 
+      sed -i.bak 's/cert: false/cert: true/' /home/{{ ansible_user }}/.config/code-server/config.yaml
+      sed -i.bak 's/bind-addr: 127.0.0.1:8080/bind-addr: 0.0.0.0:443/' /home/{{ ansible_user }}/.config/code-server/config.yaml
+
+  - name: Set the capabilities
+    shell: setcap cap_net_bind_service=+ep /usr/lib/code-server/lib/node
+
+  - name: Restart service
+    service:
+      name: code-server@{{ ansible_user }}
+      state: restarted

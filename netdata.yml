@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: yes
+  tasks: 
+
+  - name: Download the install script
+    get_url:
+      url: https://my-netdata.io/kickstart.sh
+      dest: /home/ansible/kickstart.sh
+
+  - name: Changing permission of script
+    file: dest=/home/ansible/kickstart.sh mode=a+x
+
+  - name: Install a Chrome .deb package
+    expect:
+      command: ./kickstart.sh --stable-channel
+      responses:
+              'Press ENTER to run it > ': ''
+              'Do you want to continue\? \[Y\/n\] ': 'y'
+              '\u001b\[1m\u001b\[32mPress ENTER to build and install netdata to your system\u001b\(B\u001b\[0m > ': ''
+      timeout: 180
