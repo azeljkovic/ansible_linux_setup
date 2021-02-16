@@ -10,7 +10,7 @@
   - name: Install the server
     shell: sh /home/{{ ansible_user }}/install.sh
 
-  - name: Remove file
+  - name: Remove script
     ansible.builtin.file:
       path: /home/{{ ansible_user }}/install.sh
       state: absent

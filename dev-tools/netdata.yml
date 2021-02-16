@@ -6,12 +6,12 @@
   - name: Download the install script
     get_url:
       url: https://my-netdata.io/kickstart.sh
-      dest: /home/ansible/kickstart.sh
+      dest: /home/{{ ansible_user }}/kickstart.sh
 
   - name: Changing permission of script
-    file: dest=/home/ansible/kickstart.sh mode=a+x
+    file: dest=/home/{{ ansible_user }}/kickstart.sh mode=a+x
 
-  - name: Install a Chrome .deb package
+  - name: Run the install script
     expect:
       command: ./kickstart.sh --stable-channel
       responses:

@@ -38,7 +38,7 @@
       state: started
       enabled: yes
 
-  - name: adding existing user to group docker
+  - name: Add existing user to docker group
     user:
       name: "{{ ansible_user }}"
       groups: docker

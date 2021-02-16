@@ -5,13 +5,13 @@
   - name: Download Chrome deb package
     get_url:
       url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-      dest: /home/ansible/chrome.deb
+      dest: /home/{{ ansible_user }}/chrome.deb
 
   - name: Install a Chrome .deb package
     apt:
-      deb: /home/ansible/chrome.deb
+      deb: /home/{{ ansible_user }}/chrome.deb
 
   - name: Remove file
     ansible.builtin.file:
-      path: /home/ansible/chrome.deb
+      path: /home/{{ ansible_user }}/chrome.deb
       state: absent

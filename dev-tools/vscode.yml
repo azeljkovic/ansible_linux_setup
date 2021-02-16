@@ -19,5 +19,5 @@
 
   - name: Remove file
     ansible.builtin.file:
-      path: /home/ansible/packages.microsoft.gpg
+      path: /home/{{ ansible_user }}/packages.microsoft.gpg
       state: absent
