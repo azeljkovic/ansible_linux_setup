@@ -20,12 +20,12 @@
     file: dest=/home/{{ ansible_user }}/install.sh mode=a+x
 
   - name: Instal ohmyzsh
-    shell: sh -c /home/{{ ansible_user }}/install.sh
+    shell: yes "" | NO_INTERACTIVE=true sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
   - name: Remove script
     ansible.builtin.file:
       path: /home/{{ ansible_user }}/install.sh
-      state: absent
+      state: absent   
 
   - name: Change user shell to zsh 
     become: yes

@@ -18,4 +18,9 @@
               'Press ENTER to run it > ': ''
               'Do you want to continue\? \[Y\/n\] ': 'y'
               '\u001b\[1m\u001b\[32mPress ENTER to build and install netdata to your system\u001b\(B\u001b\[0m > ': ''
-      timeout: 180
+      timeout: 300
+
+  - name: Remove script
+    ansible.builtin.file:
+      path: /home/{{ ansible_user }}/kickstart.sh
+      state: absent
