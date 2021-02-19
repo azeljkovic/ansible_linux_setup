@@ -35,6 +35,8 @@
     
   - name: Install autosuggestions plugin
     shell: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-  - name: Download and set my config file
-    shell: wget -O ".zshrc" https://raw.githubusercontent.com/azeljkovic/linux_setup/main/.zshrc
+    
+  - name: Download the install script
+    get_url:
+      url: https://raw.githubusercontent.com/azeljkovic/shell_linux_setup/main/.zshrc
+      dest: /home/{{ ansible_user }}/.zshrc
