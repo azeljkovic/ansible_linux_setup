@@ -38,5 +38,5 @@
     
   - name: Download the install script
     get_url:
-      url: https://raw.githubusercontent.com/azeljkovic/shell_linux_setup/main/.zshrc
+      url: https://raw.githubusercontent.com/azeljkovic/my_shell_and_terminal_setup/main/.zshrc
       dest: /home/{{ ansible_user }}/.zshrc
